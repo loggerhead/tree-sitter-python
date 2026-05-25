@@ -40,6 +40,15 @@ pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries/highlights.scm");
 /// The symbol tagging query for this language.
 pub const TAGS_QUERY: &str = include_str!("../../queries/tags.scm");
 
+// Force the tree-sitter native library to be linked into the final binary.
+#[used]
+static TS_LINK: unsafe fn() = {
+    unsafe fn f() {
+        let _p = tree_sitter::Parser::new();
+    }
+    f
+};
+
 #[cfg(test)]
 mod tests {
     #[test]

@@ -1,4 +1,7 @@
 fn main() {
+    if std::env::var("TARGET").unwrap() == "wasm32-unknown-unknown" {
+        return; // compiled by treease-core's build.rs
+    }
     let src_dir = std::path::Path::new("src");
 
     let mut c_config = cc::Build::new();
